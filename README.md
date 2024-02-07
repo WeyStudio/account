@@ -1,2 +1,18 @@
-# Wey account
-Wey accounts can use vika tables for user data statistics (Wey provides an open source program for web and App).
+# 打包项目在`dist`目录下
+
+# 启动项目
+
+1. 安装依赖
+```bash
+npm install
+```
+
+2. 运行项目
+```bash
+npm run dev
+```
+
+3. 打包项目
+```bash
+npm run build
+```
