@@ -15,7 +15,7 @@ export default createRouter({
             name: 'index',
             component: () => import('../views/Index.vue'),
             meta: {
-                title: 'Wey首页',
+                title: 'ColudAI首页',
                 needLogin: true
             }
         },
@@ -24,7 +24,7 @@ export default createRouter({
             name: 'login',
             component: () => import('../views/Login.vue'),
             meta: {
-                title: 'Wey账号登录',
+                title: 'ColudAI账号登录',
                 needLogin: false
             }
         },
@@ -33,7 +33,7 @@ export default createRouter({
             name: 'register',
             component: () => import('../views/Register.vue'),
             meta: {
-                title: 'Wey账号注册',
+                title: 'ColudAI账号注册',
                 needLogin: false
             }
         }

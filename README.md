@@ -1,4 +1,4 @@
-# Wey accounts
+# ColudAI accounts
 
 # CoCo editor preparation:
 Add new works and add vika controls within the works as shown in the figure

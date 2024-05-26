@@ -2,7 +2,7 @@
   <bg :spinning="spinning">
     <content>
       <div class="logo">
-        <img src="../assets/logo.png" alt="">
+        <img src="https://img2.imgtp.com/2024/05/25/WNdbDY2s.png" alt="">
       </div>
       <form>
         <div class="title">Username</div>
@@ -11,7 +11,7 @@
         </div>
         <div class="title">Password</div>
         <div class="input-box">
-          <input type="password" placeholder="Password of Wey account" v-model="userInfo.password">
+          <input type="password" placeholder="Password of ColudAI account" v-model="userInfo.password">
         </div>
         <div class="agree-box">
           <div class="checkbox" @click="isCheck = !isCheck">
@@ -22,7 +22,7 @@
                 fill="#ffffff" p-id="5432"></path>
             </svg>
           </div>
-          <div class="text">I have known <span @click="open = true">Wey Account Agreement</span></div>
+          <div class="text">I have known <span @click="open = true">ColudAI Account Agreement</span></div>
         </div>
       </form>
       <div class="submit" @click="handleSubmit">Sign in</div>
@@ -45,7 +45,7 @@
         </ul>
       </div>
     </content>
-    <a-modal v-model:open="open" title="Wey Account Agreement" @ok="open = false">
+    <a-modal v-model:open="open" title="ColudAI Account Agreement" @ok="open = false">
       <template #footer>
       </template>
       <agreement />
@@ -59,10 +59,10 @@ import content from '../components/content.vue'
 import agreement from '../components/agreement.vue'
 import { computed, ref, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
-import { Vika } from "@vikadata/vika"
 import md5 from 'crypto-js/md5'
 import { useRouter } from 'vue-router'
 import { useUserInfoStore } from '../pinia/modules/user'
+import { reqLogin } from '../api'
 const router = useRouter()
 const userInfoStore = useUserInfoStore()
 
@@ -87,17 +87,13 @@ let checkboxColor = computed(() => {
   return isCheck.value ? '#2F96E0' : '#ffffff'
 })
 
-// api_token
-const API_TOKEN = ''
-const vika = new Vika({ token: API_TOKEN, requestTimeout: 10000 })
-// 维格表id(用户表)
-const USERTABLE_ID = ''
+
 
 // loading
 const spinning = ref(false)
 
 // 登陆按钮回调
-const handleSubmit = () => {
+const handleSubmit = async() => {
   const { username, password } = userInfo.value
   // md5 密码加密
   const md5Password = md5(password).toString()
@@ -106,30 +102,25 @@ const handleSubmit = () => {
   if (!username) return message.error('用户名不能为空')
   if (!password) return message.error('密码不能为空')
   spinning.value = true
-  // 查询接口
-  const datasheet = vika.datasheet(USERTABLE_ID)
-  datasheet.records.query({
-    // fields: ["用户名"], // 字段限制
-    filterByFormula: `AND(FIND("${username}", {用户名}), FIND("${md5Password}", {密码}))` // 查询信息
-  }).then(response => {
+let data ={
+  username,
+  md5Password
+}
+ let res=await reqLogin(data)
+ console.log(res)
     spinning.value = false
-    if (response.success) {
-      if (response.data.records.length > 0) {
+    if (res.code===200) {
         // 返回的用户信息
-        sessionStorage.setItem('uinfo', JSON.stringify(response.data.records[0]))
-        userInfoStore.login(response.data.records[0])
-        message.success('登陆成功')
-        router.push('/')
-      } else {
-        message.error('您还未注册')
-      }
-    } else {
-      message.error('出错啦')
-    }
-  }).catch(error => {
-    spinning.value = false
-    message.error('出错啦')
-  })
+        sessionStorage.setItem('uinfo', JSON.stringify(res.data))
+        userInfoStore.login(res.data)
+       message.success('登陆成功')
+       router.push('/')
+     } else {
+       message.error(res.msg)
+     }
+ // }).catch(error => {
+   spinning.value = false
+  //})
 }
 
 const register = () => {

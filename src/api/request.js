@@ -2,7 +2,7 @@ import axios from "axios"
 import { message } from 'ant-design-vue'
 
 const request = axios.create({
-    baseURL: 'https://coco.codemao.cn/http-widget-proxy/http@SEP@156.224.26.105:7878/email',
+    baseURL: 'https://email.weydev.top/email',
     timeout: 10000
 })
 

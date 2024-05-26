@@ -2,7 +2,7 @@
     <bg :spinning="spinning">
         <content>
             <div class="header">
-                <img src="../assets/logo.png" alt="">
+                <img src="https://img2.imgtp.com/2024/05/25/WNdbDY2s.png" alt="">
                 <div class="title">Sign up</div>
             </div>
             <form>
@@ -10,10 +10,10 @@
                     <input type="text" placeholder="Username you had set" v-model="form.username">
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password of Wey account" v-model="form.password">
+                    <input type="password" placeholder="Password of ColudAI account" v-model="form.password">
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="Email of Wey account" v-model="form.email">
+                    <input type="text" placeholder="Email of ColudAI account" v-model="form.email">
                 </div>
                 <div class="input-box">
                     <input type="email" id="email" placeholder="Please enter your 4 email code" v-model="form.emailCode">
@@ -36,12 +36,12 @@
                                 fill="#ffffff" p-id="5432"></path>
                         </svg>
                     </div>
-                    <div class="text">I have known <span @click="open = true">Wey Account Agreement</span></div>
+                    <div class="text">I have known <span @click="open = true">ColudAI Account Agreement</span></div>
                 </div>
             </form>
             <div class="submit" @click="register">Register</div>
         </content>
-        <a-modal v-model:open="open" title="Wey Account Agreement" @ok="open = false">
+        <a-modal v-model:open="open" title="ColudAI Account Agreement" @ok="open = false">
             <template #footer>
             </template>
             <agreement />
